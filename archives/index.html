@@ -5,18 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hexo">
-    <title>Archives - Hexo</title>
-    <meta name="author" content="John Doe">
+    <meta name="generator" content="MangoTree">
+    <title>Archives - MangoTree</title>
+    <meta name="author" content="Kim Mingyu">
     
     
     
     <meta property="og:type" content="blog">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="MangoTree">
 <meta property="og:url" content="http://yoursite.com/archives/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="MangoTree">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="MangoTree">
     
     
         
@@ -45,7 +45,7 @@
 <header id="header" data-behavior="1">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a class="header-title-link" href="/ ">Hexo</a>
+        <a class="header-title-link" href="/ ">MangoTree</a>
     </div>
     
         
@@ -142,6 +142,80 @@
                         ">
                 
     <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                            uWSGI 와 Python3을 이용하여 Nginx로 배포하기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-03-27T15:37:08+00:00">
+	
+		    Mar 27, 2017
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <h1 id="Nginx-uWSGI-Django"><a href="#Nginx-uWSGI-Django" class="headerlink" title="Nginx + uWSGI + Django"></a>Nginx + uWSGI + Django</h1><p>Django에는 기본적으로 주어지는 웹서버가 있어서 manage.py runserver를 이용하여 웹서버를 구동할 수 있다. 하지만, Django 내에서 제공하는 서버는 개발할 때 쓰이는 조그마한 디버깅용 웹서버이기 때문에 실제 서비스를 배포할 때에는 다른 웹서버(Nginx or Apache)를 통해 배포하는 것이 좋다.</p>
+<h1 id="가상환경-만들기"><a href="#가상환경-만들기" class="headerlink" title="가상환경 만들기"></a>가상환경 만들기</h1><p>Python 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virtualenv venv</div></pre></td></tr></table></figure></p>
+<p><hr><br>Python 3:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virtualenv -p python3 venv</div></pre></td></tr></table></figure></p>
+<p>venv라는 이름의 가상환경 디렉토리가 생성된다</p>
+<p><hr></p>
+<h1 id="프로젝트-제작"><a href="#프로젝트-제작" class="headerlink" title="프로젝트 제작"></a>프로젝트 제작</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">source bin/activate</div><div class="line">pip install django </div><div class="line">cd ~/project</div><div class="line">django-admin.py startproject projectName</div></pre></td></tr></table></figure>
+<p><hr></p>
+<h1 id="Nginx-amp-uWSGI설치"><a href="#Nginx-amp-uWSGI설치" class="headerlink" title="Nginx &amp; uWSGI설치"></a>Nginx &amp; uWSGI설치</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nginx</div><div class="line">pip install uwsgi</div></pre></td></tr></table></figure>
+<p>설치 도중 컴파일을 실패할 경우:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install build-essential python-dev</div></pre></td></tr></table></figure></p>
+<p><hr></p>
+<h1 id="uWSGI"><a href="#uWSGI" class="headerlink" title="uWSGI"></a>uWSGI</h1><p>WSGI란 Web Server Gateway Interface의 약자로, 웹서버(Nginx)에서 받은 요청이 서버 쪽에서 처리가 필요한 경우, wsgi가 서버사이드 애플리케이션을 실행하여 담당하게 된다. 이 <a href="https://www.python.org/dev/peps/pep-3333/" target="_blank" rel="external">WSGI 규격</a>에 맞춘 코드를 실행해주는 프로그램이 uWSGI다. 이 외에 Gunicorn 같은 프로그램 또한 wsgi 규격 웹 애플리케이션을 배포할 때 쓰인다.</p>
+<h2 id="uWSGI-옵션"><a href="#uWSGI-옵션" class="headerlink" title="uWSGI 옵션"></a>uWSGI 옵션</h2><p>기본적인 실행 명령어는 다음과 같다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uwsgi --http :8080 --module &lt;프로젝트 명&gt;.wsgi</div></pre></td></tr></table></figure></p>
+<p>http 명령어 뒤에 <pre>:</pre>를 잊으면 안 된다.<br>위와 같이 실행하게 되면 8080포트에서 동작하는 uWSGI를 볼 수 있다. Nginx에서도 이 포트를 이용하여 배포를 할 수 있는데, 그것보다는 소켓 파일을 통해 uWSGI와 통신하는 것이 오버헤드가 더 적고 빠르다.<br>소켓으로 통신하기 위해 다음과 같은 설정 파일을 작성해보자.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[uwsgi]</div><div class="line"># 설정을 편하게 정리하기 위한 변수 설정</div><div class="line">base = /home/user</div><div class="line">project = &lt;Django 프로젝트 이름&gt;</div><div class="line"></div><div class="line"></div><div class="line">home = %(base)/venv # 가상환경 디렉토리 위치</div><div class="line">chdir = %(base)/%(project) # 프로젝트 위치</div><div class="line">module = %(project).wsgi:application   # Django 애플리케이션</div><div class="line"></div><div class="line">master = true    # 다중 프로세스로 작업시 management 해주는 프로세스 하나를 따로 둔다.</div><div class="line">processes = 1    # 프로세스 갯수</div><div class="line"></div><div class="line">socket= /tmp/example.sock  # 소켓을 저장할 위치</div><div class="line">chmod-socket = 666    # 소켓 접근 권한, 권한을 낮게 주면 웹서버에서 읽지 못하는 경우가 생김</div><div class="line">vacuum = true    # uWSGI 종료시 socket 파일 삭제</div></pre></td></tr></table></figure>
+<h2 id="uWSGI-실행"><a href="#uWSGI-실행" class="headerlink" title="uWSGI 실행"></a>uWSGI 실행</h2><p>커맨드 창에서 실행은 다음과 같이 한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo uwsgi -i uwsgi.ini</div></pre></td></tr></table></figure></p>
+<h2 id="uWSGI-Daemon"><a href="#uWSGI-Daemon" class="headerlink" title="uWSGI Daemon"></a>uWSGI Daemon</h2><p>항상 커맨드 창을 켜 놓을 수도 있지만, 데몬을 구성하는 것이 훨씬 관리가 편하다. 이 때는 컴퓨터 전체에 uWSGI를 설치하여야 한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install uwsgi</div><div class="line">sudo apt-get install uwsgi-plugin-python3</div></pre></td></tr></table></figure></p>
+<p>설치를 끝낸 후,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pidfile     = %(base)/mangonote.pid # uWSGI 프로세스 id</div><div class="line">daemonize   = %(base)/mangonote.log # 데몬으로 실행될 때 로그를 이곳에 기록한다.</div></pre></td></tr></table></figure></p>
+<p>다음 명령어를 uwsgi.ini에 추가하자.<br>그 후,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo uwsgi -i uwsgi.ini</div></pre></td></tr></table></figure></p>
+<p>을 입력하면<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[uWSGI] getting INI configuration from uwsgi.ini</div></pre></td></tr></table></figure></p>
+<p>과 같은 출력과 함께 데몬으로 작동하게 된다.<br>작동중인 uWSGI를 종료하고 싶을 때는,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uwsgi --stop &lt;프로젝트명&gt;.pid   # 위에서 적었던 pidfile 경로</div></pre></td></tr></table></figure></p>
+<p>다음과 같은 명령어를 입력한다.</p>
+<p><hr></p>
+<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p>웹 애플리케이션을 배포하는 웹서버이다. uWSGI와 통신하며 주고받은 데이터를 클라이언트에게 보내준다.</p>
+<h2 id="Nginx-옵션-설정"><a href="#Nginx-옵션-설정" class="headerlink" title="Nginx 옵션 설정"></a>Nginx 옵션 설정</h2><p>새로운 Nginx 설정파일을 작성하자.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/nginx/sites-available/</div><div class="line">vi djangoproject</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen &lt;Your Port&gt;; # 수신 포트 설정</div><div class="line">    server_name &lt;Your Domain&gt;; # 도메인 설정</div><div class="line"></div><div class="line">    location / &#123; # index(http://도메인/) 에서 요청 시</div><div class="line">        uwsgi_pass unix:///tmp/example.sock; # 요청을 전달할 소켓 파일 지정</div><div class="line">        include uwsgi_params; # uwsgi 사용, 리눅스에서 소켓은 파일처럼 취급된다.</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>위와 같은 기본적인 세팅으로 uWSGI와 연결할 수 있다<br>그 후, /etc/nginx/sites-enabled/에도 파일이 있어야 하므로, 심볼릭 링크를 만들어준다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -s /etc/nginx/sites-available/djangoproject /etc/nginx/sites-enabled/</div></pre></td></tr></table></figure>
+<h2 id="Nginx-실행"><a href="#Nginx-실행" class="headerlink" title="Nginx 실행"></a>Nginx 실행</h2><p>간단하다. 데몬 서비스를 켜주자<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service nginx start</div></pre></td></tr></table></figure></p>
+<p>Nginx를 실행하면, uWSGI와 제대로 연결되어 있는 것을 확인할 수 있다.</p>
+<p><hr></p>
+<h1 id="TroubleShoot"><a href="#TroubleShoot" class="headerlink" title="TroubleShoot"></a>TroubleShoot</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ImportError: No module named site</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Fatal Python error: Py_Initialize: Unable to get the locale encoding</div><div class="line">ImportError: No module named &apos;encodings&apos;</div></pre></td></tr></table></figure>
+<p>알맞은 python 가상환경을 찾지 못한 것이므로, virtualenv 경로 설정을 제대로 맞춰주자</p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
     
     
     <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
@@ -304,7 +378,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2017 John Doe. All Rights Reserved.
+        Copyrights &copy; 2017 Kim Mingyu. All Rights Reserved.
     </span>
 </footer>
 
@@ -320,7 +394,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <h4 id="about-card-name">John Doe</h4>
+            <h4 id="about-card-name">Kim Mingyu</h4>
         
             <div id="about-card-bio"><p>author.bio</p>
 </div>
@@ -419,6 +493,25 @@
                     <hr>
                 </div>
                 
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                            <h3 class="media-heading">uWSGI 와 Python3을 이용하여 Nginx로 배포하기</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 27, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
             </div>
         </div>
         <div class="modal-footer">
@@ -426,7 +519,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                3 posts found
+                4 posts found
             </p>
         </div>
     </div>

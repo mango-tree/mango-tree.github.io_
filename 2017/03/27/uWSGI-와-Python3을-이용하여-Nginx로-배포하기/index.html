@@ -6,17 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="MangoTree">
-    <title>Archives: 2017 - MangoTree</title>
+    <title>uWSGI 와 Python3을 이용하여 Nginx로 배포하기 - MangoTree</title>
     <meta name="author" content="Kim Mingyu">
     
     
     
-    <meta property="og:type" content="blog">
-<meta property="og:title" content="MangoTree">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+    <meta name="description" content="Nginx + uWSGI + DjangoDjango에는 기본적으로 주어지는 웹서버가 있어서 manage.py runserver를 이용하여 웹서버를 구동할 수 있다. 하지만, Django 내에서 제공하는 서버는 개발할 때 쓰이는 조그마한 디버깅용 웹서버이기 때문에 실제 서비스를 배포할 때에는 다른 웹서버(Nginx or Apache)를 통해 배포하는 것이 좋">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="uWSGI 와 Python3을 이용하여 Nginx로 배포하기">
+<meta property="og:url" content="http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/index.html">
 <meta property="og:site_name" content="MangoTree">
+<meta property="og:description" content="Nginx + uWSGI + DjangoDjango에는 기본적으로 주어지는 웹서버가 있어서 manage.py runserver를 이용하여 웹서버를 구동할 수 있다. 하지만, Django 내에서 제공하는 서버는 개발할 때 쓰이는 조그마한 디버깅용 웹서버이기 때문에 실제 서비스를 배포할 때에는 다른 웹서버(Nginx or Apache)를 통해 배포하는 것이 좋">
+<meta property="og:updated_time" content="2017-03-30T23:26:48.753Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MangoTree">
+<meta name="twitter:title" content="uWSGI 와 Python3을 이용하여 Nginx로 배포하기">
+<meta name="twitter:description" content="Nginx + uWSGI + DjangoDjango에는 기본적으로 주어지는 웹서버가 있어서 manage.py runserver를 이용하여 웹서버를 구동할 수 있다. 하지만, Django 내에서 제공하는 서버는 개발할 때 쓰이는 조그마한 디버깅용 웹서버이기 때문에 실제 서비스를 배포할 때에는 다른 웹서버(Nginx or Apache)를 통해 배포하는 것이 좋">
     
     
         
@@ -42,7 +46,7 @@
 
     
 
-<header id="header" data-behavior="1">
+<header id="header" data-behavior="4">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/ ">MangoTree</a>
@@ -60,7 +64,7 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="1">
+<nav id="sidebar" data-behavior="4">
     <div class="sidebar-container">
         
         
@@ -136,26 +140,21 @@
 </nav>
 
             
-            <div id="main" data-behavior="1"
+            <div id="main" data-behavior="4"
                  class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
-                            uWSGI 와 Python3을 이용하여 Nginx로 배포하기
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            uWSGI 와 Python3을 이용하여 Nginx로 배포하기
+        </h1>
+    
+    <div class="post-meta">
     <time itemprop="datePublished" datetime="2017-03-27T15:37:08+00:00">
 	
 		    Mar 27, 2017
@@ -164,10 +163,11 @@
     
 </div>
 
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <h1 id="Nginx-uWSGI-Django"><a href="#Nginx-uWSGI-Django" class="headerlink" title="Nginx + uWSGI + Django"></a>Nginx + uWSGI + Django</h1><p>Django에는 기본적으로 주어지는 웹서버가 있어서 manage.py runserver를 이용하여 웹서버를 구동할 수 있다. 하지만, Django 내에서 제공하는 서버는 개발할 때 쓰이는 조그마한 디버깅용 웹서버이기 때문에 실제 서비스를 배포할 때에는 다른 웹서버(Nginx or Apache)를 통해 배포하는 것이 좋다.</p>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="Nginx-uWSGI-Django"><a href="#Nginx-uWSGI-Django" class="headerlink" title="Nginx + uWSGI + Django"></a>Nginx + uWSGI + Django</h1><p>Django에는 기본적으로 주어지는 웹서버가 있어서 manage.py runserver를 이용하여 웹서버를 구동할 수 있다. 하지만, Django 내에서 제공하는 서버는 개발할 때 쓰이는 조그마한 디버깅용 웹서버이기 때문에 실제 서비스를 배포할 때에는 다른 웹서버(Nginx or Apache)를 통해 배포하는 것이 좋다.</p>
 <h1 id="가상환경-만들기"><a href="#가상환경-만들기" class="headerlink" title="가상환경 만들기"></a>가상환경 만들기</h1><p>Python 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virtualenv venv</div></pre></td></tr></table></figure></p>
 <p><hr><br>Python 3:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virtualenv -p python3 venv</div></pre></td></tr></table></figure></p>
 <p>venv라는 이름의 가상환경 디렉토리가 생성된다</p>
@@ -201,178 +201,70 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Fatal Python error: Py_Initialize: Unable to get the locale encoding</div><div class="line">ImportError: No module named &apos;encodings&apos;</div></pre></td></tr></table></figure>
 <p>알맞은 python 가상환경을 찾지 못한 것이므로, virtualenv 경로 설정을 제대로 맞춰주자</p>
 
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
             
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2017/03/08/Adobe-Flash-Player-윈도우-버전-다운로드/">
-                            Adobe Flash Player 윈도우 버전 다운로드
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2017-03-08T00:29:02+00:00">
-	
-		    Mar 08, 2017
-    	
-    </time>
-    
-        <span>in </span>
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/08/Adobe-Flash-Player-윈도우-버전-다운로드/" data-tooltip="Adobe Flash Player 윈도우 버전 다운로드">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
         
-    <a class="category-link" href="/categories/miscellaneous/">miscellaneous</a>
-
-
-    
-</div>
-
-            </div>
+        <li class="post-action">
             
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>왜인진 모르지만, pc용 플래시 플레이어를 다운받는 곳이 안에 숨겨져 있다.<br>그냥 플래시 플레이어 페이지에서 받으면 pc 내부에서 실행하지 못하는 경우가 생긴다.<br>pc용 플레이어를 받는 법을 알아보자</p>
-<p>먼저 Adobe flash player download 페이지에 접속한다. <a href="https://get.adobe.com/kr/flashplayer/" target="_blank" rel="external">link</a></p>
-<p>“다른 컴퓨터에도 Flash Player가 필요하신가요?” 클릭</p>
-<p>“운영 체제/브라우저 조합이 표시되지 않는 경우 Archived Flash Player 버전 페이지를 참조하십시오.” 클릭 <a href="https://helpx.adobe.com/flash-player/kb/archived-flash-player-versions.html" target="_blank" rel="external">link</a></p>
-<p><img src="/images/flash.png" alt="image"></p>
-<p>여기서 원하는 버전의 플래시 플레이어를 다운 받으면 된다.</p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2017/03/08/Adobe-Flash-Player-윈도우-버전-다운로드/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
+                <a class="post-action-btn btn btn--default" href="#">
             
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2017/03/02/UNIST-Pixel-Dungeon/">
-                            UNIST Pixel Dungeon
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2017-03-02T15:11:55+00:00">
-	
-		    Mar 02, 2017
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/outcome/">outcome</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>Traditional rougelike game introducing about UNIST.<br>It’s Based on the source code of Shattered Pixel Dungeon</p>
-<p>Play store: <a href="https://play.google.com/store/apps/details?id=com.unistpixel.unistpixeldungeon&amp;hl=ko" target="_blank" rel="external">link</a></p>
-<p>Github: <a href="https://github.com/mango-tree/UNIST-pixel-dungeon" target="_blank" rel="external">https://github.com/mango-tree/UNIST-pixel-dungeon</a></p>
-<p><img src="https://lh3.googleusercontent.com/OkrIvr4OD6EjBPmo4KfSU0a0ltw-_Wge8JCo5wnsaPxxwaO85iQArfHyI1f0_RlIkPw=h900-rw" alt="image"></p>
-<p><img src="https://lh3.googleusercontent.com/yKH1Q25YZSXIFGXonVynq8xFPz-wr102uqAtdCbhHQz5FQ_7GTDV69e4OCgDD_RK7AI=h900-rw" alt="image"></p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2017/03/02/UNIST-Pixel-Dungeon/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2017/02/19/블로그-생성/">
-                            블로그 생성
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2017-02-19T14:42:17+00:00">
-	
-		    Feb 19, 2017
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>새 블로그를 팠습니다. <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>와 <a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/" target="_blank" rel="external">Tranquilpeak</a>테마를 이용하였습니다.</p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2017/02/19/블로그-생성/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
-        
-        
-        <li class="pagination-number">page 1 of 1</li>
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+            
+        
+    </div>
+</article>
 
 
 
@@ -383,6 +275,84 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/08/Adobe-Flash-Player-윈도우-버전-다운로드/" data-tooltip="Adobe Flash Player 윈도우 버전 다운로드">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
             
         </div>
         
@@ -532,6 +502,8 @@
 <script src="/assets/js/jquery.fancybox-thumbs.js"></script>
 <script src="/assets/js/tranquilpeak.js"></script>
 <!--SCRIPTS END-->
+
+    
 
 
 
