@@ -6,14 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="MangoTree">
-    <title>MangoTree</title>
+    <title>Tag: Tip - MangoTree</title>
     <meta name="author" content="Kim Mingyu">
     
     
     
     <meta property="og:type" content="blog">
 <meta property="og:title" content="MangoTree">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/Tip/index.html">
 <meta property="og:site_name" content="MangoTree">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MangoTree">
@@ -140,61 +140,8 @@
                  class="
                         hasCoverMetaIn
                         ">
-                <section class="postShorten-group main-content-wrap">
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2017/03/31/Django-Tutorial-1-시작하기/">
-                            Django Tutorial 1 - 시작하기
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2017-03-31T00:30:25+00:00">
-	
-		    Mar 31, 2017
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/Django/">Django</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <h1 id="Django란"><a href="#Django란" class="headerlink" title="Django란?"></a>Django란?</h1><p>파이썬으로 만들어진 웹 프레임워크이다. 현재 파이썬 웹 프레임워크 중 가장 높은 인지도를 가지고 있으며, 다양한 기능들로 쉽게 웹사이트를 제작할 수 있다.</p>
-<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>앞에서도 설명했듯이 파이썬 기반 프레임워크이다. 파이썬 자체가 쉽고 편한 언어이기 때문에 보다 빠르게 프레임워크에 적응할 수 있다. 또한 많은 파이썬 모듈들을 이용할 수 있다.</p>
-<h2 id="MVC-패턴"><a href="#MVC-패턴" class="headerlink" title="MVC 패턴"></a>MVC 패턴</h2><p>Model, View, Controller의 약자이다. 웹 애플리케이션의 역할을 크게 세 가지로 나눈 디자인 패턴이며, 간략히 설명하자면:<br>사용자의 요청(request)를 받아서 - Controller<br>데이터베이스에서 정보를 읽어서 - Model<br>사용자에게 페이지를 보여주는(response) - View<br>역할이라고 볼 수 있다. 각 역할들을 분리하였기 때문에 코드가 뒤죽박죽이 될 가능성(php 날코딩 할 때를 생각해보자)을 확 낮춰준다.</p>
-<h2 id="ORM-Object-Relational-Mapping"><a href="#ORM-Object-Relational-Mapping" class="headerlink" title="ORM (Object Relational Mapping)"></a>ORM (Object Relational Mapping)</h2><p>DB를 사용할 때, 쿼리를 일일히 작성하는 것이 번거롭기 때문에 많은 프레임워크에서 나온 기능이다. 보다 쉽게 OOP스럽게 쿼리를 만들 수 있기 때문에 많이들 쓰인다. 예를 들어,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select name from user where id = &quot;email@company.com&quot;;</div></pre></td></tr></table></figure></p>
-<p>다음과 같은 쿼리를 이렇게 작성할 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">user.find(id=&quot;email@company.com&quot;).name</div></pre></td></tr></table></figure></p>
-<p>보다시피 클래스를 이용하여 OOP적으로 DB를 이용하는 것을 볼 수 있다. ORM을 사용한다면 매우 편하게 DB를 관리할 수 있으며, DB를 신경써야 할 부분은 더욱 줄어든다.<br>다만 쿼리가 매우 복잡해질 경우에는 성능 이슈로 인하여 쿼리를 직접 작성해야 하는 경우가 발생하기도 한다.</p>
-<h1 id="Django-공부하기"><a href="#Django-공부하기" class="headerlink" title="Django 공부하기"></a>Django 공부하기</h1><p>Django를 공부하기 위한 제일 좋은 방법은 <a href="https://docs.djangoproject.com" target="_blank" rel="external">공식 문서</a>를 읽는 것이다. Django 공식 문서는 완벽에 가까운 퀄리티를 가지고 있으며, 모르는 것이 있어 구글링을 할 때도 대부분 첫 번째 글로 검색되어지는 걸 볼 수 있다.<br>하지만 처음 접하는 입장에서는 무턱대고 공식 문서를 읽으라고 하는 건 진입장벽이 높기 때문에(+영어의 압박), 튜토리얼을 보며 시작하는 것도 나쁘지 않으며, 이 튜토리얼 제작 또한 그런 이유에서 시작하였다.<br>본 튜토리얼은 Django 1.10 기준으로 진행할 예정이다.</p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2017/03/31/Django-Tutorial-1-시작하기/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
+                
+    <section class="postShorten-group main-content-wrap">
     
     
     <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
@@ -266,153 +213,6 @@
                     
                         <p>
                             <a href="/2017/03/27/uWSGI-와-Python3을-이용하여-Nginx로-배포하기/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2017/03/08/Adobe-Flash-Player-윈도우-버전-다운로드/">
-                            Adobe Flash Player 윈도우 버전 다운로드
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2017-03-08T00:29:02+00:00">
-	
-		    Mar 08, 2017
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/miscellaneous/">miscellaneous</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>왜인진 모르지만, pc용 플래시 플레이어를 다운받는 곳이 안에 숨겨져 있다.<br>그냥 플래시 플레이어 페이지에서 받으면 pc 내부에서 실행하지 못하는 경우가 생긴다.<br>pc용 플레이어를 받는 법을 알아보자</p>
-<p>먼저 Adobe flash player download 페이지에 접속한다. <a href="https://get.adobe.com/kr/flashplayer/" target="_blank" rel="external">link</a></p>
-<p>“다른 컴퓨터에도 Flash Player가 필요하신가요?” 클릭</p>
-<p>“운영 체제/브라우저 조합이 표시되지 않는 경우 Archived Flash Player 버전 페이지를 참조하십시오.” 클릭 <a href="https://helpx.adobe.com/flash-player/kb/archived-flash-player-versions.html" target="_blank" rel="external">link</a></p>
-<p><img src="/images/flash.png" alt="image"></p>
-<p>여기서 원하는 버전의 플래시 플레이어를 다운 받으면 된다.</p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2017/03/08/Adobe-Flash-Player-윈도우-버전-다운로드/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2017/03/02/UNIST-Pixel-Dungeon/">
-                            UNIST Pixel Dungeon
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2017-03-02T15:11:55+00:00">
-	
-		    Mar 02, 2017
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/outcome/">outcome</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>Traditional rougelike game introducing about UNIST.<br>It’s Based on the source code of Shattered Pixel Dungeon</p>
-<p>Play store: <a href="https://play.google.com/store/apps/details?id=com.unistpixel.unistpixeldungeon&amp;hl=ko" target="_blank" rel="external">link</a></p>
-<p>Github: <a href="https://github.com/mango-tree/UNIST-pixel-dungeon" target="_blank" rel="external">https://github.com/mango-tree/UNIST-pixel-dungeon</a></p>
-<p><img src="https://lh3.googleusercontent.com/OkrIvr4OD6EjBPmo4KfSU0a0ltw-_Wge8JCo5wnsaPxxwaO85iQArfHyI1f0_RlIkPw=h900-rw" alt="image"></p>
-<p><img src="https://lh3.googleusercontent.com/yKH1Q25YZSXIFGXonVynq8xFPz-wr102uqAtdCbhHQz5FQ_7GTDV69e4OCgDD_RK7AI=h900-rw" alt="image"></p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2017/03/02/UNIST-Pixel-Dungeon/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2017/02/19/블로그-생성/">
-                            블로그 생성
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2017-02-19T14:42:17+00:00">
-	
-		    Feb 19, 2017
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>새 블로그를 팠습니다. <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>와 <a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/" target="_blank" rel="external">Tranquilpeak</a>테마를 이용하였습니다.</p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2017/02/19/블로그-생성/#post-footer" class="postShorten-excerpt_link link">
                                 Comment and share
                             </a>
                         </p>
