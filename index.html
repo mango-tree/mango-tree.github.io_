@@ -149,6 +149,65 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
+                        <a class="link-unstyled" href="/2017/04/01/Django-Tutorial-2-개발환경-구축/">
+                            Django Tutorial 2 - 개발환경 구축
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-04-01T17:11:11+00:00">
+	
+		    Apr 01, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Django/">Django</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <p>장고 프로그래밍을 시작하기에 앞서 설치하는 방법을 익히자.</p>
+<h1 id="Python-설치"><a href="#Python-설치" class="headerlink" title="Python 설치"></a>Python 설치</h1><p>파이썬 웹 프레임워크이니만큼, 파이썬을 설치하여야 한다.<br>만약 리눅스나 맥이라면 기본적으로 설치가 되어 있을 것이며, 윈도우라면 <a href="https://www.python.org/downloads/" target="_blank" rel="external">Python 홈페이지</a>에서 다운받을 수 있다.</p>
+<h2 id="Python-2-3"><a href="#Python-2-3" class="headerlink" title="Python 2? 3?"></a>Python 2? 3?</h2><p>현재 파이썬은 2와 3 두 버전으로 나뉘어 있으며, 둘은 서로 호환이 되지 않는다. 따라서 어떤 버전을 골라야 하는지 고민하게 될 수 있다.<br>장고는 2와 3 둘 다 사용할 수 있으며, 다른 모듈들이 양 버전을 지원하지 않아 사용을 못하는 경우도 있을 수 있지만 중요한 모듈들은 대부분 2와 3 보두를 지원한다.<br>필자는 계속 개발이 진행중이며, 인코딩 이슈가 없는 python3를 선호한다. 새로 만들 프로젝트라면 python3를 이용하자.</p>
+<h1 id="가상환경-구축"><a href="#가상환경-구축" class="headerlink" title="가상환경 구축"></a>가상환경 구축</h1><p>기본적으로 파이썬 모듈을 설치할 때는, 모든 유저들이 같은 라이브러리를 공유하게 된다. 파이썬 모듈을 설치할 때 보통 pip을 쓰는데, global하게 설치되기 때문이다. 따라서 각 유저별/프로젝트별로 모듈 버전 관리를 하기 매우 불편하다. 이러한 점을 해결하기 위해 virtualenv 등의 프로그램을 이용하여 가상 개발환경을 구축해 사용한다.</p>
+<h2 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h2><p>가장 잘 알려진 가상환경 구축 모듈이다. 명령어 한 두줄로 간단하게 구축이 가능하다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div><div class="line">virtualenv myvenv</div></pre></td></tr></table></figure></p>
+<p>python3면 다음과 같이 한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python3 -m venv myvenv</div></pre></td></tr></table></figure></p>
+<p>그 후엔 <code>myvenv</code>라는 디렉토리가 생성된 것을 볼 수 있다.<br>이제 방금 만든 가상환경 안으로 들어가자.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source myvenv/bin/activate</div></pre></td></tr></table></figure></p>
+<p>윈도우라면<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myvenv\Scripts\activate</div></pre></td></tr></table></figure></p>
+<p>커맨드 라인 앞에 (myvenv)가 적혀 있다면 가상환경 안에 성공적으로 들어온 것이다. 이제 pip으로 설치하는 모듈들은 다 myvenv 안에 설치된다. 따라서 이 디렉토리를 지우면 설치했던 모듈들을 깔끔히 제거할 수 있다.</p>
+<h1 id="Django-설치"><a href="#Django-설치" class="headerlink" title="Django 설치"></a>Django 설치</h1><p>장고는 pip에서 설치할 수 있다. 가상환경 안으로 들어와서 설치해주자.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install django</div></pre></td></tr></table></figure></p>
+<h1 id="프로젝트-시작하기"><a href="#프로젝트-시작하기" class="headerlink" title="프로젝트 시작하기"></a>프로젝트 시작하기</h1><p>장고를 설치했다면 <code>django-admin</code> 명령어를 사용할 수 있다. 이 명령어도 새로운 프로젝트를 생성하자.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django-admin startproject &lt;프로젝트 이름&gt;</div></pre></td></tr></table></figure></p>
+<p>이상 우리는 장고를 시작할 준비를 마쳤다.</p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/04/01/Django-Tutorial-2-개발환경-구축/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
                         <a class="link-unstyled" href="/2017/03/31/Django-Tutorial-1-시작하기/">
                             Django Tutorial 1 - 시작하기
                         </a>
@@ -589,6 +648,25 @@
                     <hr>
                 </div>
                 
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2017/04/01/Django-Tutorial-2-개발환경-구축/">
+                            <h3 class="media-heading">Django Tutorial 2 - 개발환경 구축</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 1, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
             </div>
         </div>
         <div class="modal-footer">
@@ -596,7 +674,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                5 posts found
+                6 posts found
             </p>
         </div>
     </div>
