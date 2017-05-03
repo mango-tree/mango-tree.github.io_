@@ -150,6 +150,175 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
+                        <a class="link-unstyled" href="/2017/04/06/Django-Tutorial-5-Template/">
+                            Django Tutorial 5 - Template
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-04-06T00:30:46+00:00">
+	
+		    Apr 06, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Django/">Django</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <p>이전 글처럼 string으로만 요청을 처리할 수도 있지만, 모든 html 응답을 저런 식으로 처리하는 것은 매우 힘들기 때문에, 장고에서는 템플릿을 지원한다.<br>기본적으로 <code>DjangoTemplates</code>라는, 장고 전용 템플릿을 사용하며, 입맛에 따라 다른 템플릿으로도 변경 가능하다.</p>
+<h2 id="template-설정"><a href="#template-설정" class="headerlink" title="template 설정"></a>template 설정</h2><p>템플릿 관련 설정은 <code>settings.py</code>에 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">TEMPLATES = [</div><div class="line">    &#123;</div><div class="line">        &apos;BACKEND&apos;: &apos;django.template.backends.django.DjangoTemplates&apos;,</div><div class="line">        &apos;DIRS&apos;: [],</div><div class="line">        &apos;APP_DIRS&apos;: True,</div><div class="line">        &apos;OPTIONS&apos;: &#123;</div><div class="line">            # ... some options here ...</div><div class="line">        &#125;,</div><div class="line">    &#125;,</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p><code>BACKEND</code> - 템플릿 엔진을 정할 수 있다. 장고에 내장되어 있는 템플릿은 <code>django.template.backends.django.DjangoTemplates</code> 와 <code>django.template.backends.jinja2.Jinja2</code>이다.<br><code>DIRS</code> - 템플릿이 있는 디렉토리 위치를 정해준다.<br><code>APP_DIRS</code> - 각 애플리케이션 안에 templates 디렉토리를 체크할지를 알려준다.<br>DIR 파라미터에 다음과 같은 값을 넣어주자<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;DIRS&apos;: [os.path.join(BASE_DIR, &apos;templates&apos;)],</div></pre></td></tr></table></figure></p>
+<p>root 디렉토리에서 ‘templates’ 디렉토리를 나타낸다.</p>
+<h2 id="template-파일-생성"><a href="#template-파일-생성" class="headerlink" title="template 파일 생성"></a>template 파일 생성</h2><p>다음과 같이 templates 디렉토리를 생성한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">db.sqlite3</div><div class="line">manage.py</div><div class="line">templates/          # os.path.join(BASE_DIR, &apos;templates&apos;)</div><div class="line">tutorial/</div><div class="line">    __init__.py</div><div class="line">    settings.py</div><div class="line">    urls.py</div><div class="line">    wsgi.py</div><div class="line">userlogin/</div><div class="line">    __init__.py</div><div class="line">    admin.py</div><div class="line">    apps.py</div><div class="line">    migrations/</div><div class="line">        __init__.py</div><div class="line">    templates/      # APP_DIRS=True일시, 이 템플릿 디렉토리도 체크한다.</div><div class="line">        userlogin/</div><div class="line">    models.py</div><div class="line">    tests.py</div><div class="line">    views.py</div></pre></td></tr></table></figure></p>
+<p>templates/index.html를 만든 후, html 코드를 작성한다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;Tutorial&lt;/title&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    Django Tutorial</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>이제 view 함수와 템플릿을 연결해주자</p>
+<h2 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h2><p>HttpResponse() 함수 대신, render() 함수를 사용할 것이다. 사용법은 다음과 같다.<br><code>render(request, template_name, context=None, content_type=None, status=None, using=None)<br></code><br>index 함수에 있는 함수를 교체해보자.<br>userlogin/views.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def index(request):</div><div class="line">    return render(request, &apos;index.html&apos;, &#123;&#125;)</div></pre></td></tr></table></figure></p>
+<p>그 후 웹 페이지에 접속하면, 다음과 같은 화면이 뜬다.<br><img src="" alt="image"></p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/04/06/Django-Tutorial-5-Template/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2017/04/05/Django-Tutorial-4-View-Template/">
+                            Django Tutorial 4 - View
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-04-05T02:17:07+00:00">
+	
+		    Apr 05, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Django/">Django</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <p>이제 웹페이지에 새로운 내용을 채워보자.</p>
+<h1 id="새-애플리케이션-생성"><a href="#새-애플리케이션-생성" class="headerlink" title="새 애플리케이션 생성"></a>새 애플리케이션 생성</h1><p>장고는 프로젝트 하나에 여러 애플리케이션으로 구성되어 있다. 예를 들어, 웹 사이트 하나(프로젝트)에 여러 기능들과 페이지(유저 정보 관리, 게시판, 결제 등등 - 애플리케이션)로 이루어져 있는 식이다.</p>
+<h2 id="새-애플리케이션-만들기"><a href="#새-애플리케이션-만들기" class="headerlink" title="새 애플리케이션 만들기"></a>새 애플리케이션 만들기</h2><p><code>django-admin</code>으로 간단하게 생성할 수 있다.<br>django-admin startapp &lt;애플리케이션 이름&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django-admin startapp userlogin</div></pre></td></tr></table></figure></p>
+<p>메인 디렉토리에 새 디렉토리가 생긴 것을 알 수 있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">db.sqlite3</div><div class="line">manage.py</div><div class="line">tutorial/</div><div class="line">    __init__.py</div><div class="line">    settings.py</div><div class="line">    urls.py</div><div class="line">    wsgi.py</div><div class="line">userlogin/          # new Application</div><div class="line">    __init__.py</div><div class="line">    admin.py</div><div class="line">    apps.py</div><div class="line">    migrations/</div><div class="line">        __init__.py</div><div class="line">    models.py</div><div class="line">    tests.py</div><div class="line">    views.py</div></pre></td></tr></table></figure></p>
+<p>tutorial/settings.py에 들어가서 <code>INSTALLED_APPS</code>에 우리가 만든 애플리케이션을 추가하자<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">INSTALLED_APPS = [</div><div class="line">&apos;django.contrib.admin&apos;,</div><div class="line">&apos;django.contrib.auth&apos;,</div><div class="line">&apos;django.contrib.contenttypes&apos;,</div><div class="line">&apos;django.contrib.sessions&apos;,</div><div class="line">&apos;django.contrib.messages&apos;,</div><div class="line">&apos;django.contrib.staticfiles&apos;,</div><div class="line">&apos;userlogin&apos;,</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h1 id="View"><a href="#View" class="headerlink" title="View"></a>View</h1><p><code>Django에서 MVC 패턴 중 “view”는 무엇일까? 특정 URL에 대한 Callback function이다. 이 함수들이 어떤 데이터들이 왔는지 알려주기 때문이다. 그렇다면 “controller”는 무엇일까? Django에서는, 프레임워크 자체라고 볼 수 있다. 프레임워크 단에서 view로 request를 날려주기 때문이다.<br>따라서, Django는 “MTV”패턴을 가지고 있다고 말할 수 있다. Model, Template, View.<br>출처: Django 공식 문서<br></code><br><a href="https://docs.djangoproject.com/en/1.10/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names" target="_blank" rel="external">link</a></p>
+<p>장고에서 들어온 요청을 처리하는 부분이다. 웹 페이지의 로직과 알고리즘의 대부분이 이 곳에 있다.<br>위 공식 문서에서도 볼 수 있듯이, 장고에서 요청을 처리하는 방법은, 요청-&gt;라우터(URL 라우팅)-&gt;view(-&gt;model-&gt;view)-&gt;template-&gt;응답 순이다.</p>
+<h2 id="HttpResponse-이용하기"><a href="#HttpResponse-이용하기" class="headerlink" title="HttpResponse 이용하기"></a>HttpResponse 이용하기</h2><p>장고에서 제일 기본적으로 이용할 수 있는 응답(response) 함수이다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from django.shortcuts import HttpResponse</div><div class="line"></div><div class="line">def index(request):</div><div class="line">    return HttpResponse(&quot;Hello, world&quot;);</div></pre></td></tr></table></figure></p>
+<p>HttpResponse() 함수는 파라미터에 넣은 문자열을 출력시킨다.</p>
+<h2 id="URL-라우팅-설정하기"><a href="#URL-라우팅-설정하기" class="headerlink" title="URL 라우팅 설정하기"></a>URL 라우팅 설정하기</h2><h3 id="Router"><a href="#Router" class="headerlink" title="Router?"></a>Router?</h3><p>요청받은 URL에 따라 적절한 view로 요청을 보내주는 곳이다. 장고에서는 <code>urls.py</code>에서 그 역할을 수행한다.</p>
+<h3 id="urls-py"><a href="#urls-py" class="headerlink" title="urls.py"></a>urls.py</h3><p>프로젝트 디렉도리 안에 있는 urls.py 파일을 열어 다음과 같이 추가하자<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url</div><div class="line">from django.contrib import admin</div><div class="line">from userlogin import views as userlogin_views</div><div class="line"></div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^admin/&apos;, admin.site.urls),</div><div class="line">    url(r&apos;^$&apos;, userlogin_views.index)</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>이렇게 함수를 추가하면, 브라우저 창에 다음과 같이 뜬다.<br><img src="" alt="image"></p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/04/05/Django-Tutorial-4-View-Template/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2017/04/02/Django-allauth로-facebook-twitter-Oauth-부착하기/">
+                            Django-allauth로 facebook, twitter Oauth 부착하기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-04-02T09:07:54+00:00">
+	
+		    Apr 02, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Django/">Django</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <h1 id="Oauth"><a href="#Oauth" class="headerlink" title="Oauth"></a>Oauth</h1><h1 id="django-allauth"><a href="#django-allauth" class="headerlink" title="django-allauth"></a>django-allauth</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install django-allauth</div></pre></td></tr></table></figure>
+<h2 id="setting"><a href="#setting" class="headerlink" title="setting"></a>setting</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"># Specify the context processors as follows:</div><div class="line">TEMPLATES = [</div><div class="line">    &#123;</div><div class="line">        &apos;BACKEND&apos;: &apos;django.template.backends.django.DjangoTemplates&apos;,</div><div class="line">        &apos;DIRS&apos;: [],</div><div class="line">        &apos;APP_DIRS&apos;: True,</div><div class="line">        &apos;OPTIONS&apos;: &#123;</div><div class="line">            &apos;context_processors&apos;: [</div><div class="line">                # Already defined Django-related contexts here</div><div class="line"></div><div class="line">                # `allauth` needs this from django</div><div class="line">                &apos;django.template.context_processors.request&apos;,</div><div class="line">            ],</div><div class="line">        &#125;,</div><div class="line">    &#125;,</div><div class="line">]</div><div class="line"></div><div class="line">AUTHENTICATION_BACKENDS = (</div><div class="line">    ...</div><div class="line">    # Needed to login by username in Django admin, regardless of `allauth`</div><div class="line">    &apos;django.contrib.auth.backends.ModelBackend&apos;,</div><div class="line"></div><div class="line">    # `allauth` specific authentication methods, such as login by e-mail</div><div class="line">    &apos;allauth.account.auth_backends.AuthenticationBackend&apos;,</div><div class="line">    ...</div><div class="line">)</div><div class="line"></div><div class="line">INSTALLED_APPS = (</div><div class="line">    ...</div><div class="line">    # The following apps are required:</div><div class="line">    &apos;django.contrib.auth&apos;,</div><div class="line">    &apos;django.contrib.sites&apos;,</div><div class="line"></div><div class="line">    &apos;allauth&apos;,</div><div class="line">    &apos;allauth.account&apos;,</div><div class="line">    &apos;allauth.socialaccount&apos;,</div><div class="line">    # ... include the providers you want to enable:</div><div class="line">    &apos;allauth.socialaccount.providers.facebook&apos;,</div><div class="line">    &apos;allauth.socialaccount.providers.twitter&apos;,</div><div class="line">    ...</div><div class="line">)</div><div class="line"></div><div class="line">SITE_ID = 1</div></pre></td></tr></table></figure>
+<p>urls.py:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">urlpatterns = [</div><div class="line">    ...</div><div class="line">    url(r&apos;^accounts/&apos;, include(&apos;allauth.urls&apos;)),</div><div class="line">    ...</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h2 id="Migrate"><a href="#Migrate" class="headerlink" title="Migrate"></a>Migrate</h2><p>./manage.py makemigrations<br>./manage.py migrate<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">Operations to perform:</div><div class="line">  Apply all migrations: account, admin, auth, contenttypes, sessions, sites, socialaccount</div><div class="line">Running migrations:</div><div class="line">  Applying contenttypes.0001_initial... OK</div><div class="line">  Applying auth.0001_initial... OK</div><div class="line">  Applying account.0001_initial... OK</div><div class="line">  Applying account.0002_email_max_length... OK</div><div class="line">  Applying admin.0001_initial... OK</div><div class="line">  Applying admin.0002_logentry_remove_auto_add... OK</div><div class="line">  Applying contenttypes.0002_remove_content_type_name... OK</div><div class="line">  Applying auth.0002_alter_permission_name_max_length... OK</div><div class="line">  Applying auth.0003_alter_user_email_max_length... OK</div><div class="line">  Applying auth.0004_alter_user_username_opts... OK</div><div class="line">  Applying auth.0005_alter_user_last_login_null... OK</div><div class="line">  Applying auth.0006_require_contenttypes_0002... OK</div><div class="line">  Applying auth.0007_alter_validators_add_error_messages... OK</div><div class="line">  Applying auth.0008_alter_user_username_max_length... OK</div><div class="line">  Applying sessions.0001_initial... OK</div><div class="line">  Applying sites.0001_initial... OK</div><div class="line">  Applying sites.0002_alter_domain_unique... OK</div><div class="line">  Applying socialaccount.0001_initial... OK</div><div class="line">  Applying socialaccount.0002_token_max_lengths... OK</div><div class="line">  Applying socialaccount.0003_extra_data_default_dict... OK</div></pre></td></tr></table></figure></p>
+<h1 id="플랫폼별-allauth-연결"><a href="#플랫폼별-allauth-연결" class="headerlink" title="플랫폼별 allauth 연결"></a>플랫폼별 allauth 연결</h1><h2 id="Facebook"><a href="#Facebook" class="headerlink" title="Facebook"></a>Facebook</h2><p>먼저 <a href="https://developers.facebook.com/" target="_blank" rel="external">facebook developers page</a>에 접속하여 앱을 만든다.</p>
+<h2 id="Twitter"><a href="#Twitter" class="headerlink" title="Twitter"></a>Twitter</h2><h2 id="Admin-설정"><a href="#Admin-설정" class="headerlink" title="Admin 설정"></a>Admin 설정</h2><p>도메인 설정</p>
+<p>Social application 설정</p>
+<h2 id="allauth-매커니즘"><a href="#allauth-매커니즘" class="headerlink" title="allauth 매커니즘"></a>allauth 매커니즘</h2>
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/04/02/Django-allauth로-facebook-twitter-Oauth-부착하기/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
                         <a class="link-unstyled" href="/2017/04/02/Django-Tutorial-3-Hello-world/">
                             Django Tutorial 3 - Hello, world!
                         </a>
@@ -513,6 +682,63 @@
                     <hr>
                 </div>
                 
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2017/04/02/Django-allauth로-facebook-twitter-Oauth-부착하기/">
+                            <h3 class="media-heading">Django-allauth로 facebook, twitter Oauth 부착하기</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 2, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2017/04/05/Django-Tutorial-4-View-Template/">
+                            <h3 class="media-heading">Django Tutorial 4 - View</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 5, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2017/04/06/Django-Tutorial-5-Template/">
+                            <h3 class="media-heading">Django Tutorial 5 - Template</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 6, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
             </div>
         </div>
         <div class="modal-footer">
@@ -520,7 +746,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                7 posts found
+                10 posts found
             </p>
         </div>
     </div>
